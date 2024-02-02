@@ -24,10 +24,10 @@ data$label <- c("20-50 years \n (28%)", "10-20 years \n (33%)", "5-10 years \n (
 #PLOT
 # Basic piechart
 experience.plot <- ggplot(data, aes(x="", y=prop, fill=new_bin)) +
-                   geom_bar(stat="identity", width=1, color="white") +
+                   geom_bar(stat="identity", width=2 , color="black") +
                    coord_polar("y", start=0) +
                    theme_void() + 
                    theme(legend.position="none") +
                    geom_text(aes(y = ypos, label = label), color = "black", size=6, family= "serif") +
                    scale_fill_viridis_d(end = 1, begin = 0.6)
-
+experience.plot
