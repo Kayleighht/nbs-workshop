@@ -23,7 +23,7 @@ stage.plot <- ggplot(data, aes(x="", y=prop, fill= stage.barrier)) +
   coord_polar("y", start=0) +
   theme_void() + 
   theme(legend.position="none") +
-  geom_text(aes(y = ypos, label = label), color = "black", size=5, family= "serif") +
+  geom_text(aes(y = ypos, label = label), color = "black", size=4, family= "serif") +
   scale_fill_viridis_d(end = 1, begin = 0.6)
 
 stage.plot

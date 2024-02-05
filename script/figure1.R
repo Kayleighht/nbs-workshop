@@ -26,7 +26,7 @@ wtcount<- as.data.frame(wtcount[!duplicated(wtcount), ])
 wtcount$importance <- factor(wtcount$importance, levels = c("Not applicable", "Tertiary importance", "Secondary importance","Primary importance"))
 
 #PLOTTING
-barriers <- wtcount %>%
+topics <- wtcount %>%
   filter(!is.na(importance)) %>%
   ggplot() +
   aes(x = reorder(topic, importance.count), y = importance.count, fill = importance) + 
@@ -36,4 +36,5 @@ barriers <- wtcount %>%
   coord_flip() + alltheme #+ theme_legend4 +
   #theme(axis.text = element_text(size = 18, colour = "black")) +
   #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
-barriers
+topics
+
