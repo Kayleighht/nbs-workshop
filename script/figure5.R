@@ -25,3 +25,5 @@ scale.plot <- ggplot(data, aes(x="", y=prop, fill= scale.engagement)) +
   scale_fill_viridis_d(end = 1, begin = 0.6)
 
 scale.plot
+
+ggsave(filename ="graphics/Figure5.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  

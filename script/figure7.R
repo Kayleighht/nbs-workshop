@@ -46,3 +46,6 @@ barriers <- barriercount %>%
 #theme(axis.text = element_text(size = 18, colour = "black")) +
 #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
 barriers
+
+ggsave(filename ="graphics/Figure7.png", width = 300, units="mm", height = 100 , device='tiff', dpi=100)  
+

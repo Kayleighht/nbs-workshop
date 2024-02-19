@@ -3,6 +3,8 @@ source('script/data-cleaning.R')
 
 engage <- select(survey1, c("Policy2", "Academia", "Management", 
                                 "Practictioner"))
+engage[engage == "Practictioner"] <- "Practitioner" 
+engage[engage == "Very often (e.g., weekly or monthly)"] <- "Very often (e.g., weekly to monthly)" 
 
 #make column names rows for plotting
 engage <- engage %>%
@@ -28,9 +30,13 @@ engagement <- engagecount %>%
   ggplot() +
   aes(x = reorder(sector, frequency.count), y = frequency.count, fill = frequency) + 
   geom_col() +
+  ggtitle("Engagement with other Sectors") +
   scale_fill_viridis_d(direction=-1, end = 1, begin = 0.1, name="Level of Frequency") +
   labs(x= "", y= "") +
   coord_flip() + alltheme #+ theme_legend4 +
 #theme(axis.text = element_text(size = 18, colour = "black")) +
 #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
 engagement
+
+ggsave(filename ="graphics/Figure4.png", width = 300, units="mm", height = 100 , device='tiff', dpi=100)  
+

@@ -27,7 +27,11 @@ experience.plot <- ggplot(data, aes(x="", y=prop, fill=new_bin)) +
                    geom_bar(stat="identity", width=2 , color="black") +
                    coord_polar("y", start=0) +
                    theme_void() + 
+                   ggtitle("Years of Experience") +
                    theme(legend.position="none") +
                    geom_text(aes(y = ypos, label = label), color = "black", size=6, family= "serif") +
                    scale_fill_viridis_d(end = 1, begin = 0.6)
 experience.plot
+
+ggsave(filename ="graphics/Figure2.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  
+

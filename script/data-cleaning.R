@@ -1,8 +1,8 @@
 #packagesneeded
 source('script/packages.R')
 
-survey1<- read.csv('input/survey-eng.csv')
-survey2<- read.csv('input/survey-fr.csv')
+survey1<- read.csv('input/survey-combined.csv')
+#survey2<- read.csv('input/survey-fr.csv')
 
 #remove whitespace (leading/trailing zero)
 survey1<- survey1 %>% 
@@ -21,6 +21,5 @@ survey2<- survey2 %>%
 survey1[survey1 == ""] <- NA 
 survey2[survey2 == ""] <- NA
 
-#COMBINE two survey responses 
 
 

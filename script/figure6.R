@@ -22,8 +22,11 @@ stage.plot <- ggplot(data, aes(x="", y=prop, fill= stage.barrier)) +
   geom_bar(stat="identity", width=2 , color="black") +
   coord_polar("y", start=0) +
   theme_void() + 
+  ggtitle("Barriers: Stage of Project") +
   theme(legend.position="none") +
   geom_text(aes(y = ypos, label = label), color = "black", size=4, family= "serif") +
   scale_fill_viridis_d(end = 1, begin = 0.6)
 
 stage.plot
+
+ggsave(filename ="graphics/Figure6.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  

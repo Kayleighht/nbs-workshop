@@ -13,6 +13,8 @@ worktopics[worktopics == "Biodiversity.and.conservation"] <- "Biodiversity and C
 worktopics[worktopics == "Natural.resources.and.ecosystem.services"] <- "Natural Resources and Ecosystem Services" 
 worktopics[worktopics == "Human.health.and.wellbeing"] <- "Human Health and Wellbeing" 
 worktopics[worktopics == "Equity.diversity.and.inclusion.and.access.to.nature"] <- "Access to Nature and EDI" 
+worktopics[worktopics == "Nature.education.and.recreation"] <- "Nature Education and Recreation" 
+
 
 #create count value
 # journal name count by country of first author
@@ -37,4 +39,6 @@ topics <- wtcount %>%
   #theme(axis.text = element_text(size = 18, colour = "black")) +
   #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
 topics
+
+ggsave(filename ="graphics/Figure1.png", width = 300, units="mm", height = 100 , device='tiff', dpi=100)  
 
