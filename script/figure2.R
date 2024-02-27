@@ -14,24 +14,25 @@ years <- years %>% mutate(new_bin = cut(work., breaks=c(0, 5, 10, 20, 50)))
 years <- years %>%
   count(new_bin) 
 
-# Compute the position of labels
-data <- years %>% 
-  arrange(desc(new_bin)) %>%
-  mutate(prop = n/sum(years$n) *100) %>%
-  mutate(ypos = cumsum(prop)- 0.5*prop )
-data$label <- c("20-50 years \n (28%)", "10-20 years \n (33%)", "5-10 years \n (17%)", "0-5 years \n (22%)")
+years$timescale<- c("0-5 years", "5-10 years", "10-20 years", ">20 years")
 
-#PLOT
-# Basic piechart
-experience.plot <- ggplot(data, aes(x="", y=prop, fill=new_bin)) +
-                   geom_bar(stat="identity", width=2 , color="black") +
-                   coord_polar("y", start=0) +
-                   theme_void() + 
-                   ggtitle("Years of Experience") +
-                   theme(legend.position="none") +
-                   geom_text(aes(y = ypos, label = label), color = "black", size=6, family= "serif") +
-                   scale_fill_viridis_d(end = 1, begin = 0.6)
-experience.plot
+#adding factor to timescales
+#years$timescale <- factor(years$timescale, levels = c("0-5 years", "5-10 years", "10-20 years", ">20 years"))
 
-ggsave(filename ="graphics/Figure2.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  
+#PLOTTING
+timescale <- 
+  ggplot(years) +
+  aes(x = reorder(timescale, -n), y = n) + 
+  geom_col(fill = "#440154") +
+  ggtitle("Years working in the field") +
+  scale_fill_viridis_d(direction=-1, end = 1, begin = 0.1, name="Level of Frequency") +
+  labs(x= "", y= "") +
+  coord_flip() + alltheme +
+  theme_legend #+ theme_legend4 +
+#theme(axis.text = element_text(size = 18, colour = "black")) +
+#scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
+timescale
+
+ggsave(filename ="graphics/Figure2.png", width = 300, units="mm", height = 100 , device='tiff', dpi=250)  
+
 

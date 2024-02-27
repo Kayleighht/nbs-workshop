@@ -23,20 +23,23 @@ engagecount <- engage %>%
 engagecount<- as.data.frame(engagecount[!duplicated(engagecount), ])
 
 #engagecount$frequency <- factor(engagecount$frequency, levels = c("Not applicable", "Tertiary importance", "Secondary importance","Primary importance"))
+engagecount$sector <- factor(engagecount$sector, levels = c("Management", "Practictioner", "Academia","Policy"))
+
 
 #PLOTTING
 engagement <- engagecount %>%
   filter(!is.na(frequency)) %>%
   ggplot() +
-  aes(x = reorder(sector, frequency.count), y = frequency.count, fill = frequency) + 
+  aes(x = sector, y = frequency.count, fill = frequency) + 
   geom_col() +
   ggtitle("Engagement with other Sectors") +
   scale_fill_viridis_d(direction=-1, end = 1, begin = 0.1, name="Level of Frequency") +
   labs(x= "", y= "") +
-  coord_flip() + alltheme #+ theme_legend4 +
+  coord_flip() + alltheme +
+  theme_legend #+ theme_legend4 +
 #theme(axis.text = element_text(size = 18, colour = "black")) +
 #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
 engagement
 
-ggsave(filename ="graphics/Figure4.png", width = 300, units="mm", height = 100 , device='tiff', dpi=100)  
+ggsave(filename ="graphics/Figure4.png", width = 300, units="mm", height = 100 , device='tiff', dpi=250)  
 

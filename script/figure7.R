@@ -28,24 +28,50 @@ barriercount <- barriers %>%
 #remove duplicates
 barriercount<- as.data.frame(barriercount[!duplicated(barriercount), ])
 
-barriercount$importance <- factor(barriercount$importance, levels = c("Not applicable", 
-                                                                      "Not important",
-                                                                      "Somewhat important",
-                                                                      "Important",
-                                                                      "Very important"))
+barriercount$barrier <- factor(barriercount$barrier, levels = c("Lack time and/or resources", 
+                                                                "Not recognized in job mandate",
+                                                                "Lack funding opportunities",
+                                                                "Lack knowledge and/or access",
+                                                                "Scale mismatch to other sectors",
+                                                                "Lack interest or not relevant to my work",
+                                                                "Networking",
+                                                                "Past negative experiences or failed attempts"))
+
+#barriercount$barrier <- factor(barriercount$barrier, levels = c("Lack interest or not relevant to my work",
+#                                                                "Lack time and/or resources",
+#                                                                "Lack knowledge and/or access",
+#                                                                "Not recognized in job mandate",
+#                                                                "Scale mismatch to other sectors",
+#                                                                "Past negative experiences or failed attempts",
+#                                                                "Lack funding opportunities",
+#                                                                "Networking"
+#                                                                ))
+
+barriercount$importance <- factor(barriercount$importance, 
+                               levels = c("Not applicable",
+                                          "Not important",
+                                          "Somewhat important",
+                                          "Important",
+                                          "Very important"))
+
 
 #PLOTTING
 barriers <- barriercount %>%
   filter(!is.na(importance)) %>%
   ggplot() +
-  aes(x = reorder(barrier, importance.count), y = importance.count, fill = importance) + 
+  aes(x = barrier, y = importance.count, fill = importance) + 
   geom_col() +
   scale_fill_viridis_d(direction=-1, end = 1, begin = 0.1, name="Level of Importance") +
   labs(x= "", y= "") +
-  coord_flip() + alltheme #+ theme_legend4 +
+  coord_flip() + alltheme +
+  theme_legend +
+  ggtitle("Please rank the barriers to cross-sectoral \n engagement you experience")
+
+
+#+ theme_legend4 +
 #theme(axis.text = element_text(size = 18, colour = "black")) +
 #scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
 barriers
 
-ggsave(filename ="graphics/Figure7.png", width = 300, units="mm", height = 100 , device='tiff', dpi=100)  
+ggsave(filename ="graphics/Figure7_v1.png", width = 320, units="mm", height = 100 , device='tiff', dpi=250)  
 

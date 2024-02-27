@@ -9,25 +9,22 @@ sector[sector == "Practictioner"] <- "Practitioner"
 sector <- as.data.frame(sector %>%
   count(sector.of.work)) 
 
-# Compute the position of labels
-data <- sector %>% 
-  arrange(desc(sector.of.work)) %>%
-  mutate(prop = n/sum(sector$n) *100) %>%
-  mutate(ypos = cumsum(prop)- 0.5*prop )
-data$label <- c("Research \n (38%)", "Practitioner \n (18%)", "Policy \n (23%)", "Management \n (14%)")
+#adding factor to timescales
+#years$timescale <- factor(years$timescale, levels = c("0-5 years", "5-10 years", "10-20 years", ">20 years"))
 
-#PLOT
-# Basic piechart
-sector.plot <- ggplot(data, aes(x="", y=prop, fill= sector.of.work)) +
-  geom_bar(stat="identity", width=2 , color="black") +
-  coord_polar("y", start=0) +
-  theme_void() + 
-  ggtitle("Sector of Work") +
-  theme(legend.position="none") +
-  geom_text(aes(y = ypos, label = label), color = "black", size=5, family= "serif") +
-  scale_fill_viridis_d(end = 1, begin = 0.6)
+#PLOTTING
+sectorwork <- 
+  ggplot(sector) +
+  aes(x = reorder(sector.of.work, -n), y = n) + 
+  geom_col(fill = "#440154") +
+  ggtitle("Which sector do you work in?") +
+  scale_fill_viridis_d(direction=-1, end = 1, begin = 0.1, name="Level of Frequency") +
+  labs(x= "", y= "") +
+  coord_flip() + alltheme +
+  theme_legend #+ theme_legend4 +
+#theme(axis.text = element_text(size = 18, colour = "black")) +
+#scale_y_continuous(breaks = c(0, 5, 10, 15), limits = c(0,15))
+sectorwork
 
-sector.plot
-
-ggsave(filename ="graphics/Figure3.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  
+ggsave(filename ="graphics/Figure3.png", width = 300, units="mm", height = 100 , device='tiff', dpi=250)  
 

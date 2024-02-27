@@ -10,23 +10,17 @@ stage <- as.data.frame(stage  %>%
 stage<- na.omit(stage)
 
 # Compute the position of labels
-data <- stage %>% 
-  arrange(desc(stage.barrier)) %>%
-  mutate(prop = n/sum(stage$n) *100) %>%
-  mutate(ypos = cumsum(prop)- 0.5*prop )
-data$label <- c("Middle \n (27%)", "End \n (14%)", "Start \n (59%)")
+stage$stagebarrier<- c("Beginning", "End", "Middle")
+stage$percent <- (stage$n/56)*100
 
 #PLOT
 # Basic piechart
-stage.plot <- ggplot(data, aes(x="", y=prop, fill= stage.barrier)) +
-  geom_bar(stat="identity", width=2 , color="black") +
-  coord_polar("y", start=0) +
-  theme_void() + 
-  ggtitle("Barriers: Stage of Project") +
+stage.plot <- ggplot(stage, aes(x= reorder(stagebarrier, -percent), y=percent)) +
+  geom_bar(stat="identity", width= 0.9 , color="black", fill= "#440154") +
+  ggtitle("Stage of project barriers were faced") +
   theme(legend.position="none") +
-  geom_text(aes(y = ypos, label = label), color = "black", size=4, family= "serif") +
-  scale_fill_viridis_d(end = 1, begin = 0.6)
+  alltheme + labs(x= "Stage of Project", y= "Percent") 
 
 stage.plot
 
-ggsave(filename ="graphics/Figure6.png", width = 150, units="mm", height = 150 , device='tiff', dpi=100)  
+ggsave(filename ="graphics/Figure6.png", width = 185, units="mm", height = 150 , device='tiff', dpi=250)  
